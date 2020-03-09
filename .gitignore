@@ -1,0 +1,10 @@
+
+*/bin/
+*/obj/
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+*.app

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="lab1.Compiller.Compilator" Collapsed="true">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAQABABAAAAAAAAAAwAAAAAAQABAAAAAAAAgIAA=</HashCode>
+      <FileName>Compiller\Compiller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.IdentifierManager" Collapsed="true">
+    <Position X="17.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAABAAAEAAAAAAAAAAAAAAAAJAAAA=</HashCode>
+      <FileName>Compiller\IdentifierManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.TypeMismatchException" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.LexemException" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.VariableException" Collapsed="true">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.Functor" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAgAAAEAAAAAgAAACAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="lab1.Compiller.Function" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAgAAAAAAAAAAAQABAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.Operator" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAgAAAAAAAAAAAQABAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.Identifier" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAEAAAAAAAAACAAAAACAQAgCAAgAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="lab1.Compiller.Service" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAEAAAAAAAAACAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="lab1.Compiller.Memory" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAIAAAAAAIBAAAAAAAAEEgAAIAAABACAA=</HashCode>
+      <FileName>Compiller\Memory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.EvalObject" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAIAAAAAAEYAUDAAAAAAAAAAAAAAAgABAoAEA=</HashCode>
+      <FileName>Compiller\Types.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.IntObject" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEA=</HashCode>
+      <FileName>Compiller\Types.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.CharObject" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEA=</HashCode>
+      <FileName>Compiller\Types.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.StringObject" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAIAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAgAEA=</HashCode>
+      <FileName>Compiller\Types.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.BoolObject" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAIAAAAAAAAAABAAAAAAAAAAAAAAAAAAAgAEA=</HashCode>
+      <FileName>Compiller\Types.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Compiller.FloatObject" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEA=</HashCode>
+      <FileName>Compiller\Types.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Form1" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAYAACAAABAAAACAAAoCAAAIAAAAAEQAACAAEAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Program" Collapsed="true">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Properties.Resources" Collapsed="true">
+    <Position X="17.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab1.Properties.Settings" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="lab1.Compiller.ILexem" Collapsed="true">
+    <Position X="14" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAEAAAAAAAAACAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="lab1.Compiller.ICallable" Collapsed="true">
+    <Position X="12.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="lab1.Compiller.LexemType" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAQAgAAAAAQAAAIAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="lab1.Compiller.SystemTypes" Collapsed="true">
+    <Position X="14" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgQAAAAAAAAAAAACAAAAAAAAAgACA=</HashCode>
+      <FileName>Compiller\Types.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="lab1.Compiller.Caller" Collapsed="true">
+    <Position X="12.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAA=</HashCode>
+      <FileName>Compiller\Lexems.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
