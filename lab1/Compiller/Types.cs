@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace lab1.Compiller
 	{
-
+	/// <summary>
+	/// Встроенные типы данных в интерпретатор
+	/// </summary>
 	public enum SystemTypes
 		{
 		Char,
@@ -16,8 +18,16 @@ namespace lab1.Compiller
 		Bool
 		}
 
+	/// <summary>
+	/// Базовый тип для всех типов данных
+	/// </summary>
 	public abstract class EvalObject
 		{
+		/// <summary>
+		/// Пытается определить тип данных выражения
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static SystemTypes? Recognise (string value)
 			{
 			int temp_int;
@@ -34,18 +44,41 @@ namespace lab1.Compiller
 				return SystemTypes.String;
 			return null;
 			}
+
+		/// <summary>
+		/// Тип данных объекта
+		/// </summary>
 		public abstract SystemTypes SystemType { get; }
+
+		/// <summary>
+		/// Хранимое значение
+		/// </summary>
 		public object Value { get; protected set; }
-		//public SystemTypes Type { get; protected set; }
+
 		public EvalObject (object value)
 			{
 			Value = value;
 			}
+
+		/// <summary>
+		/// Получает размер данных
+		/// </summary>
+		/// <returns></returns>
 		public abstract int SizeOf ();
+
+		/// <summary>
+		/// Получает хранимое значение
+		/// </summary>
+		/// <returns></returns>
 		public abstract dynamic GetValue ();
 
 		#region Operators
 
+		/// <summary>
+		/// Определяет операцию сложения типов
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public virtual EvalObject Add (EvalObject obj)
 			{
 			if ( SystemType != obj.SystemType )
@@ -55,6 +88,11 @@ namespace lab1.Compiller
 			return Memory.CreateObjectFromValue(( var1 + var2 ).ToString());
 			}
 
+		/// <summary>
+		/// Определяет операцию вычитания типов
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public virtual EvalObject Subtract (EvalObject obj)
 			{
 			if ( SystemType != obj.SystemType )
@@ -64,6 +102,11 @@ namespace lab1.Compiller
 			return Memory.CreateObjectFromValue(( var1 - var2 ).ToString());
 			}
 
+		/// <summary>
+		/// Определяет операцию деления типов
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public virtual EvalObject Devide (EvalObject obj)
 			{
 			if ( SystemType != obj.SystemType )
@@ -73,6 +116,11 @@ namespace lab1.Compiller
 			return Memory.CreateObjectFromValue(( var1 / var2 ).ToString());
 			}
 
+		/// <summary>
+		/// Определяет операцию умножения типов
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public virtual EvalObject Multiply (EvalObject obj)
 			{
 			if ( SystemType != obj.SystemType )
@@ -109,6 +157,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Целочисленный тип данных
+	/// </summary>
 	public class IntObject : EvalObject
 		{
 		public IntObject (int value) : base(value)
@@ -135,6 +186,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Символьный тип данных
+	/// </summary>
 	public class CharObject : EvalObject
 		{
 		public CharObject (string value) : base(value)
@@ -161,6 +215,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Строковый тип данных
+	/// </summary>
 	public class StringObject : EvalObject
 		{
 		public override SystemTypes SystemType
@@ -212,6 +269,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Логический тип данных
+	/// </summary>
 	public class BoolObject : EvalObject
 		{
 		public override SystemTypes SystemType
@@ -253,6 +313,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Вещественный тип данных
+	/// </summary>
 	public class FloatObject : EvalObject
 		{
 		public FloatObject (float value) : base(value)

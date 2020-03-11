@@ -6,19 +6,32 @@ using System.Threading.Tasks;
 
 namespace lab1.Compiller
 	{
-
-
-
+	/// <summary>
+	/// Симулирует память интерпретатора
+	/// </summary>
 	public static class Memory
 		{
 		public delegate bool MemoryActions (EvalObject obj);
+
+		/// <summary>
+		/// Возникает при удалении объекта в памяти
+		/// </summary>
 		public static MemoryActions Remove;
+
+		/// <summary>
+		/// Возникает при создании обхекта в памяти
+		/// </summary>
 		public static MemoryActions Create;
+
+		/// <summary>
+		/// Список объектов в памяти
+		/// </summary>
 		static Dictionary<uint, EvalObject> Objects = new Dictionary<uint, EvalObject>();
 		public static void Clear ()
 			{
 			Objects.Clear();
 			}
+
 		static Memory ()
 			{
 			Create += CreateObj;
@@ -26,12 +39,22 @@ namespace lab1.Compiller
 			}
 		static uint MemAddress = 0;
 
+		/// <summary>
+		/// Создаёт обхект в памяти
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		static bool CreateObj (EvalObject obj)
 			{
 			Objects.Add(MemAddress += (uint)obj.SizeOf(), obj);
 			return true;
 			}
 
+		/// <summary>
+		/// Удаляет объект из памяти
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		static bool RemoveObj (EvalObject obj)
 			{
 			var index = LocateObject(obj.ToString());
@@ -43,6 +66,11 @@ namespace lab1.Compiller
 			return false;
 			}
 
+		/// <summary>
+		/// Определяет адрес объекта в памяти, на основании его строкового представления
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static uint? LocateObject (string value)
 			{
 			foreach ( var item in Objects )
@@ -53,6 +81,11 @@ namespace lab1.Compiller
 			return null;
 			}
 
+		/// <summary>
+		/// Создаёт объект из строкового представления
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static EvalObject CreateObjectFromValue (string value)
 			{
 			uint? index = LocateObject(value);
