@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace lab1.Compiller
 	{
+	/// <summary>
+	/// Компилятор (интерпретатор) выражений
+	/// </summary>
 	public static class Compilator
 		{
+		/// <summary>
+		/// Набор базовых операций над идентификаторами
+		/// </summary>
 		public static Dictionary<string, Operator> Operators =
 			new Dictionary<string, Operator>
 				{
@@ -26,11 +32,30 @@ namespace lab1.Compiller
 				["="] = new Operator("=", 2, delegate (ref Identifier first, Identifier[] args)
 					{ IdentifierManager.ReAssign(ref first, args[0].Value); return first.Value; }, 1),
 				};
+		/// <summary>
+		/// Набор служебных символов
+		/// </summary>
+		static Dictionary<string, Service> Service =
+			new Dictionary<string, Service>
+				{
+				[";"] = new Service(";", 0),
+				["("] = new Service("(", 2),
+				[")"] = new Service(")", 2),
+				};
 
+		/// <summary>
+		/// Получает список базовых операторов
+		/// </summary>
 		public static List<string> AllOperators { get { return Operators.Keys.ToList(); } }
 
+		/// <summary>
+		/// Получает список служебных символов
+		/// </summary>
 		public static List<string> AllServiceSymbols { get { return Service.Keys.ToList(); } }
 
+		/// <summary>
+		/// Набор операторов и служебных символов
+		/// </summary>
 		public static Dictionary<string, ILexem> Symbols;
 
 		static Compilator ()
@@ -41,27 +66,27 @@ namespace lab1.Compiller
 			foreach ( var item in Service )
 				Symbols.Add(item.Key, item.Value);
 			}
-		static Dictionary<string, Service> Service =
-			new Dictionary<string, Service>
-				{
-				[";"] = new Service(";", 0),
-				["("] = new Service("(", 2),
-				[")"] = new Service(")", 2),
-				};
 
+		/// <summary>
+		/// Разбивает выражение на лексемы
+		/// </summary>
+		/// <param name="_formula">Текст программы</param>
+		/// <returns></returns>
 		static List<string> Partionize (string _formula)
 			{
 			string formula = new String(_formula.Where(chr => chr != ' ').ToArray());
-			HashSet<string> op = new HashSet<string>(Compilator.AllOperators.Concat(Compilator.AllServiceSymbols));
-			var Identifiers = formula.Split(op.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
+			HashSet<string> symbols = new HashSet<string>(Compilator.AllOperators.Concat(Compilator.AllServiceSymbols));
+			//получаю последовательность идентификаторов
+			var Identifiers = formula.Split(symbols.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
 			string buffer = String.Join("", formula.Split(Identifiers, StringSplitOptions.RemoveEmptyEntries));
 			StringBuilder build = new StringBuilder();
 
+			//получаю последовательность операторов
 			List<string> Opers = new List<string>();
 			foreach ( var symb in buffer )
 				{
 				build.Append(symb);
-				if ( op.Contains(build.ToString()) )
+				if ( symbols.Contains(build.ToString()) )
 					{
 					Opers.Add(build.ToString());
 					build.Clear();
@@ -69,13 +94,14 @@ namespace lab1.Compiller
 				}
 
 			if ( build.Length > 0 )
-				throw new Exception("Ошибка разбора");
+				throw new LexemException("Ошибка разбора");
 			int opCount = Opers.Count();
 			int idCount = Identifiers.Count();
 			List<string> partioned = new List<string>();
-			int i = 0;
-			int k = 0;
-			int o = 0;
+			int i = 0; //итератор по формуле
+			int o = 0; //итератор по операторам
+			int k = 0; //итератор по идентификаторам
+			//сшиваю последовательности операторов и идентификаторов
 			while ( idCount + opCount > 0 )
 				{
 				if ( o < Opers.Count() && Opers[o][0] == formula[i] )
@@ -95,12 +121,23 @@ namespace lab1.Compiller
 			return partioned;
 			}
 
+		/// <summary>
+		/// Лексический анализ
+		/// </summary>
+		/// <param name="code"></param>
+		/// <returns>Возвращает код разбитый на лексемы</returns>
 		public static List<List<string>> LAnalize(string code)
 			{
 			List<string> lines = code.Split("\n\r".ToArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
 			return lines.Select(elem => Partionize(elem)).ToList();
 			}
 
+		/// <summary>
+		/// Синтаксический анализ
+		/// </summary>
+		/// <param name="parts">Последовательности лексем</param>
+		/// <param name="Identifiers">Идентификаторы переменных</param>
+		/// <returns>Возвращает последовательности лексем состоящих из операторов и идентификаторов</returns>
 		public static List<List<ILexem>> SAnalize (List<List<string>> parts, out HashSet<ILexem> Identifiers)
 			{
 			List<ILexem> Lexems;
@@ -119,7 +156,7 @@ namespace lab1.Compiller
 		/// Синтаксический анализирует выражение состоящее из отдельных слов
 		/// </summary>
 		/// <param name="expression"></param>
-		/// <returns></returns>
+		/// <returns>Возвращает последовательность идентификаторов и операторов</returns>
 		public static List<ILexem> ToLexems (List<string> expression)
 			{
 			List<ILexem> result = new List<ILexem>();
@@ -142,11 +179,12 @@ namespace lab1.Compiller
 						}
 			return result;
 			}
+
 		/// <summary>
 		/// Формирует постфиксную запись выражения
 		/// </summary>
 		/// <param name="expression">Лексемы в инфиксной форме записи</param>
-		/// <returns></returns>
+		/// <returns>Возвращает лексемы записанные в постфиксной записи</returns>
 		public static List<ILexem> Postfix (List<ILexem> expression)
 			{
 			List<ILexem> postfix = new List<ILexem>();
@@ -208,12 +246,13 @@ namespace lab1.Compiller
 					buffer.Push(item);
 				else
 					{
+					// получаю функцию, взаимодействующую с операторами
 					ICallable func;
 					if ( item.Type == LexemType.Operator )
 						func = (Operator)item;
 					else
 						func = (Function)item;
-
+					// достаю параметры функции
 					List<Identifier> parameters = new List<Identifier>();
 					for ( int i = 0; i < func.ParamCount-1; i++ )
 						parameters.Add((Identifier)buffer.Pop());
@@ -224,7 +263,7 @@ namespace lab1.Compiller
 						throw new VariableException(op1.Literal, "Not assigned, but referenced");
 					if ( parameters.Any((lex) => lex.Address == null) )
 						throw new VariableException("Not assigned, but referenced");
-
+					// выполняю вычисление
 					EvalObject result = func.Evaluate(ref op1, parameters.ToArray());
 					buffer.Push(new Identifier(result));
 					}
