@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace lab1.Compiller
 	{
+	/// <summary>
+	/// Вызывается при выполнении операции между недопустимыми типами
+	/// </summary>
 	[Serializable]
 	public class TypeMismatchException : Exception
 		{
@@ -18,6 +21,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Вызывается при ошибке лексического разбора
+	/// </summary>
 	[Serializable]
 	public class LexemException : Exception
 		{
@@ -30,6 +36,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Вызывается во времени выполнения
+	/// </summary>
 	[Serializable]
 	public class VariableException : Exception
 		{
@@ -46,6 +55,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Типы лексем в интерпретаторе
+	/// </summary>
 	public enum LexemType
 		{
 		Constant	= 1,
@@ -107,22 +119,63 @@ namespace lab1.Compiller
 		}
 	 */
 
+	/// <summary>
+	/// Лексема
+	/// </summary>
 	public interface ILexem
 		{
+		/// <summary>
+		/// Строковое представление лексемы
+		/// </summary>
 		string Literal { get; }
+
+		/// <summary>
+		/// Тип лексемы
+		/// </summary>
 		LexemType Type { get; }
+
+		/// <summary>
+		/// Системное представление лексемы
+		/// </summary>
+		/// <returns>Строковое описание лексемы</returns>
 		string Serialize ();
+
+		/// <summary>
+		/// Приоритет при синтаксическом разборе
+		/// </summary>
 		int Priority { get; }
 		}
 
+	/// <summary>
+	/// Тип вызываемой функции с переменным числом аргументов
+	/// </summary>
+	/// <param name="first"></param>
+	/// <param name="args"></param>
+	/// <returns></returns>
 	public delegate EvalObject Caller(ref Identifier first, params Identifier[] args);
 
+	/// <summary>
+	/// Вызываемая функция
+	/// </summary>
 	public interface ICallable
 		{
+		/// <summary>
+		/// Выполняет вызов функции
+		/// </summary>
+		/// <param name="first">Первый аргумент</param>
+		/// <param name="args">Последующие</param>
+		/// <returns></returns>
 		EvalObject Evaluate (ref Identifier first, params Identifier[] args);
+
+		/// <summary>
+		/// Количество параметров функции
+		/// </summary>
 		int ParamCount { get; }
 		}
 
+	/// <summary>
+	/// Функтор, вызываемый объект, всегда возвращает результат при вызове
+	/// </summary>
 	public abstract class Functor : ILexem, ICallable
 		{
 		public string Literal { get; }
@@ -148,12 +201,12 @@ namespace lab1.Compiller
 
 		public abstract LexemType Type { get; }
 
-		public abstract int Priority
-			{
-			get;
-			}
+		public abstract int Priority { get; }
 		}
 
+	/// <summary>
+	/// Системная функция, принимает некоторое число аргументов
+	/// </summary>
 	public class Function : Functor
 		{
 		public override int Priority { get { return 0; } }
@@ -177,6 +230,9 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Системный оператор
+	/// </summary>
 	public class Operator : Functor
 		{
 		Caller Func;
@@ -185,6 +241,13 @@ namespace lab1.Compiller
 			{
 			Priority = priority;
 			}
+		/// <summary>
+		/// Конструктор встроенного оператора
+		/// </summary>
+		/// <param name="expression">Строковое представление</param>
+		/// <param name="paramCount">Число параметров</param>
+		/// <param name="func">Тело вызываемой функции</param>
+		/// <param name="priority">Приоритет оператора</param>
 		public Operator (string expression, int paramCount, Caller func, int priority) : base(expression, paramCount)
 			{
 			Priority = priority;
@@ -207,14 +270,28 @@ namespace lab1.Compiller
 			}
 		}
 
+	/// <summary>
+	/// Идентификатор - переменная или литерал(константа)
+	/// </summary>
 	public class Identifier : ILexem
 		{
+		/// <summary>
+		/// Адрес объекта в памяти
+		/// </summary>
 		public uint? Address;
 		public string Literal { get; }
 		public LexemType Type { get; }
 		public readonly SystemTypes? SystemType;
 		public int Priority { get { return 0; } }
+
+		/// <summary>
+		/// Проверка на отсутствие значения
+		/// </summary>
 		public bool isNull { get { return Value != null; } }
+
+		/// <summary>
+		/// Хранимый объект
+		/// </summary>
 		public EvalObject Value
 			{
 			get
@@ -246,6 +323,11 @@ namespace lab1.Compiller
 				}
 			}
 		
+		/// <summary>
+		/// Конструктор создания переменной некоторого типа
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="type"></param>
 		public Identifier(string name, SystemTypes? type)
 			{
 			Literal = name;
@@ -254,6 +336,11 @@ namespace lab1.Compiller
 			Type = LexemType.Identifier;
 			}
 
+		/// <summary>
+		/// Конструктор создания переменной, ссылающейся на объект
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="obj"></param>
 		public Identifier (string name, EvalObject obj)
 			{
 			Literal = name;
@@ -262,6 +349,10 @@ namespace lab1.Compiller
 			Type = LexemType.Identifier;
 			}
 
+		/// <summary>
+		/// Конструктор создания константы
+		/// </summary>
+		/// <param name="value"></param>
 		public Identifier (EvalObject value)
 			{
 			Literal = value.ToString();
@@ -282,6 +373,9 @@ namespace lab1.Compiller
 			
 		}
 
+	/// <summary>
+	/// Служебный символ
+	/// </summary>
 	public class Service : ILexem
 		{
 		public int Priority { get; }
