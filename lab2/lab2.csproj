@@ -52,7 +52,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Producer\Adjective.cs" />
     <Compile Include="Producer\Generator.cs" />
+    <Compile Include="Producer\Noun.cs" />
+    <Compile Include="Producer\TerminateWord.cs" />
+    <Compile Include="Producer\UnTerminateWord.cs" />
+    <Compile Include="Producer\Verb.cs" />
+    <Compile Include="Producer\Word.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
