@@ -137,8 +137,8 @@ namespace lab1
 
 		void button1_Click (object sender, EventArgs e)
 			{
-			//IdentifierManager.Clear();
-			//Memory.Clear();
+			IdentifierManager.Clear();
+			Memory.Clear();
 			lexemsText.Text = "";
 			var lines = Compilator.LAnalize(textInput.Text);
 			foreach ( var line in lines )
@@ -157,7 +157,7 @@ namespace lab1
 					{
 					postfixText.Text += String.Join(" ", expression) + "\r\n";
 					res = Compilator.Evaluate(expression);
-					postfixText.Text += "out: " + res.Value.ToString()+ "\r\n";
+					postfixText.Text += ">> ответ: " + res.Value.ToString()+ "\r\n";
 					}
 				}
 			catch ( TypeMismatchException ex)
@@ -174,5 +174,10 @@ namespace lab1
 			{
 
 			}
-		}
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 	}

@@ -115,7 +115,7 @@ namespace lab1.Compiller
 						obj = new BoolObject(( value == "True" ));
 						break;
 						default:
-						throw new LexemException($"Can't recognize {value} type");
+						throw new LexemException($"Не получается распознать тип у значения - {value}");
 						}
 					return obj;
 					}

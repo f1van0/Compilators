@@ -32,7 +32,7 @@ namespace lab1.Compiller
 			{
 			int temp_int;
 			float temp_float;
-			if ( int.TryParse(value, out temp_int) )
+            if ( int.TryParse(value, out temp_int) )
 				return SystemTypes.Int;
 			if ( float.TryParse(value, out temp_float) )
 				return SystemTypes.Float;
@@ -81,8 +81,8 @@ namespace lab1.Compiller
 		/// <returns></returns>
 		public virtual EvalObject Add (EvalObject obj)
 			{
-			if ( SystemType != obj.SystemType )
-				throw new TypeMismatchException("Can't use operator + on two different types");
+            if (!(SystemType == SystemTypes.Int || SystemType == SystemTypes.Float) || !(obj.SystemType == SystemTypes.Int || obj.SystemType == SystemTypes.Float))
+                throw new TypeMismatchException("Нельзя использовать оператор сложения с нечисловыми типами");
 			var var1 = GetValue();
 			var var2 = obj.GetValue();
 			return Memory.CreateObjectFromValue(( var1 + var2 ).ToString());
@@ -95,8 +95,8 @@ namespace lab1.Compiller
 		/// <returns></returns>
 		public virtual EvalObject Subtract (EvalObject obj)
 			{
-			if ( SystemType != obj.SystemType )
-				throw new TypeMismatchException("Can't use operator - on two different types");
+            if (!(SystemType == SystemTypes.Int || SystemType == SystemTypes.Float) || !(obj.SystemType == SystemTypes.Int || obj.SystemType == SystemTypes.Float))
+                throw new TypeMismatchException("Нельзя использовать оператор вычитания с нечисловыми типами");
 			var var1 = GetValue();
 			var var2 = obj.GetValue();
 			return Memory.CreateObjectFromValue(( var1 - var2 ).ToString());
@@ -107,24 +107,46 @@ namespace lab1.Compiller
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public virtual EvalObject Devide (EvalObject obj)
+		public virtual EvalObject Divide (EvalObject obj)
 			{
-			if ( SystemType != obj.SystemType )
-				throw new TypeMismatchException("Can't use operator / on two different types");
+            if (!(SystemType == SystemTypes.Int || SystemType == SystemTypes.Float) || !(obj.SystemType == SystemTypes.Int || obj.SystemType == SystemTypes.Float))
+                throw new TypeMismatchException("Нельзя использовать оператор деления с нечисловыми типами");
 			var var1 = GetValue();
 			var var2 = obj.GetValue();
 			return Memory.CreateObjectFromValue(( var1 / var2 ).ToString());
 			}
 
-		/// <summary>
-		/// Определяет операцию умножения типов
+        /// <summary>
+		/// Определяет операцию возведения в степень типов
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public virtual EvalObject Multiply (EvalObject obj)
+		public virtual EvalObject Pow(EvalObject obj)
+        {
+            if (!(SystemType == SystemTypes.Int || SystemType == SystemTypes.Float) || !(obj.SystemType == SystemTypes.Int || obj.SystemType == SystemTypes.Float))
+                throw new TypeMismatchException("Нельзя использовать оператор возведения в степень с нечисловыми типами");
+            var var1 = GetValue();
+            var var2 = obj.GetValue();
+            return Memory.CreateObjectFromValue((Math.Pow(var1,var2)).ToString());
+        }
+
+        public virtual EvalObject Pow(float value)
+        {
+            if (!(SystemType == SystemTypes.Int || SystemType == SystemTypes.Float))
+                throw new TypeMismatchException("Нельзя использовать оператор возведения в степень с нечисловыми типами");
+            var var1 = GetValue();
+            return Memory.CreateObjectFromValue((Math.Pow(var1, value)).ToString());
+        }
+
+        /// <summary>
+        /// Определяет операцию умножения типов
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public virtual EvalObject Multiply (EvalObject obj)
 			{
-			if ( SystemType != obj.SystemType )
-				throw new TypeMismatchException("Can't use operator * on two different types");
+            if (!(SystemType == SystemTypes.Int || SystemType == SystemTypes.Float) && !(obj.SystemType == SystemTypes.Int || obj.SystemType == SystemTypes.Float))
+                throw new TypeMismatchException("Нельзя использовать оператор умножения с нечисловыми типами");
 			var var1 = GetValue();
 			var var2 = obj.GetValue();
 			return Memory.CreateObjectFromValue(( var1 * var2 ).ToString());
@@ -142,16 +164,26 @@ namespace lab1.Compiller
 
 		public static EvalObject operator / (EvalObject obj1, EvalObject obj2)
 			{
-			return obj1.Devide(obj2);
+			return obj1.Divide(obj2);
 			}
 
 		public static EvalObject operator * (EvalObject obj1, EvalObject obj2)
 			{
 			return obj1.Multiply(obj2);
 			}
-		#endregion
 
-		public override string ToString ()
+        public static EvalObject operator ^(EvalObject obj1, EvalObject obj2)
+        {
+            return obj1.Pow(obj2);
+        }
+
+        public static EvalObject operator ^(EvalObject obj1, float obj2)
+        {
+            return obj1.Pow(obj2);
+        }
+        #endregion
+
+        public override string ToString ()
 			{
 			return Value.ToString();
 			}

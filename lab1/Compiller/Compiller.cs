@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace lab1.Compiller
@@ -16,22 +17,29 @@ namespace lab1.Compiller
 		/// </summary>
 		public static Dictionary<string, Operator> Operators =
 			new Dictionary<string, Operator>
-				{
+			{
 				["+"] = new Operator("+", 2, delegate(ref Identifier first, Identifier[] args)
-					{return first.Value + args[0].Value;}, 3),
+				{return first.Value + args[0].Value;}, 3),
 
 				["-"] = new Operator("-", 2, delegate (ref Identifier first, Identifier[] args)
-					{ return first.Value - args[0].Value; }, 3),
+				{ return first.Value - args[0].Value; }, 3),
 
 				["*"] = new Operator("*", 2, delegate (ref Identifier first, Identifier[] args)
-					{ return first.Value * args[0].Value; }, 4),
+				{ return first.Value * args[0].Value; }, 4),
 
 				["/"] = new Operator("/", 2, delegate (ref Identifier first, Identifier[] args)
-					{ return first.Value / args[0].Value; }, 4),
+				{ return first.Value / args[0].Value; }, 4),
 
-				["="] = new Operator("=", 2, delegate (ref Identifier first, Identifier[] args)
-					{ IdentifierManager.ReAssign(ref first, args[0].Value); return first.Value; }, 1),
-				};
+                ["^"] = new Operator("^", 2, delegate (ref Identifier first, Identifier[] args)
+                { return first.Value ^ args[0].Value; }, 2),
+
+                ["sqrt"] = new Operator("sqrt", 1, delegate (ref Identifier first, Identifier[] args)
+                { return first.Value ^ 0.5f; }, 5),
+
+                ["="] = new Operator("=", 2, delegate (ref Identifier first, Identifier[] args)
+				{ IdentifierManager.ReAssign(ref first, args[0].Value); return first.Value; }, 1),
+
+            };
 		/// <summary>
 		/// Набор служебных символов
 		/// </summary>
@@ -78,23 +86,20 @@ namespace lab1.Compiller
 			HashSet<string> symbols = new HashSet<string>(Compilator.AllOperators.Concat(Compilator.AllServiceSymbols));
 			//получаю последовательность идентификаторов
 			var Identifiers = formula.Split(symbols.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
-			string buffer = String.Join("", formula.Split(Identifiers, StringSplitOptions.RemoveEmptyEntries));
-			StringBuilder build = new StringBuilder();
+            var regex = new Regex($@"(\+|-|\*|/|sqrt|\^|=|\(|\)|;)");
+            var matches = regex.Matches(formula).Cast<Match>()
+                .Select(m => m.Value)
+                .ToArray();
+            //получаю последовательность операторов
+            List<string> Opers = new List<string>();
+            foreach (string symb in matches)
+            {
+                if (symbols.Contains(symb))
+                    Opers.Add(symb);
+                else
+                    throw new LexemException("Ошибка разбора");
+            }
 
-			//получаю последовательность операторов
-			List<string> Opers = new List<string>();
-			foreach ( var symb in buffer )
-				{
-				build.Append(symb);
-				if ( symbols.Contains(build.ToString()) )
-					{
-					Opers.Add(build.ToString());
-					build.Clear();
-					}
-				}
-
-			if ( build.Length > 0 )
-				throw new LexemException("Ошибка разбора");
 			int opCount = Opers.Count();
 			int idCount = Identifiers.Count();
 			List<string> partioned = new List<string>();
@@ -260,9 +265,9 @@ namespace lab1.Compiller
 					Identifier op1 = (Identifier)buffer.Pop();
 
 					if ( op1.Value == null && item.Literal!= "=")
-						throw new VariableException(op1.Literal, "Not assigned, but referenced");
+						throw new VariableException(op1.Literal, "не присвоено значение");
 					if ( parameters.Any((lex) => lex.Address == null) )
-						throw new VariableException("Not assigned, but referenced");
+						throw new VariableException("не присвоено значение");
 					// выполняю вычисление
 					EvalObject result = func.Evaluate(ref op1, parameters.ToArray());
 					buffer.Push(new Identifier(result));
