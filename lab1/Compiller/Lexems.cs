@@ -139,7 +139,7 @@ namespace lab1.Compiller
 
         public string Serialize()
         {
-            return $"{Type}\t{Literal}";
+            return $"{"Служебный символ"}\t{Literal}";
         }
 
         public override string ToString()
@@ -223,6 +223,9 @@ namespace lab1.Compiller
     /// </summary>
     public class Identifier : ILexem
     {
+
+        public string PostfixName;
+
         /// <summary>
         /// Адрес объекта в памяти
         /// </summary>
@@ -280,6 +283,7 @@ namespace lab1.Compiller
         public Identifier(string name, SystemTypes? type)
         {
             Literal = name;
+            PostfixName = Literal;
             Address = null;
             SystemType = type;
             Type = LexemType.Identifier;
@@ -293,6 +297,21 @@ namespace lab1.Compiller
         public Identifier(string name, EvalObject obj)
         {
             Literal = name;
+            PostfixName = Literal;
+            Value = obj;
+            SystemType = (obj != null) ? (SystemTypes?)Value.SystemType : null;
+            Type = LexemType.Identifier;
+        }
+
+        /// <summary>
+        /// Конструктор создания промежуточной переменной, ссылающейся на объект
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="obj"></param>
+        public Identifier(string name, string postfixName, EvalObject obj)
+        {
+            Literal = name;
+            PostfixName = postfixName;
             Value = obj;
             SystemType = (obj != null) ? (SystemTypes?)Value.SystemType : null;
             Type = LexemType.Identifier;
@@ -305,6 +324,7 @@ namespace lab1.Compiller
         public Identifier(EvalObject value)
         {
             Literal = value.ToString();
+            PostfixName = Literal;
             Value = value;
             SystemType = Value.SystemType;
             Type = LexemType.Constant;
@@ -317,7 +337,7 @@ namespace lab1.Compiller
 
         public string Serialize()
         {
-            return $"{Type}\t{Literal}[{Address}]";
+            return $"{"Идентификатор"}\t\t{Literal}[{Address}]";
         }
 
     }
@@ -349,7 +369,7 @@ namespace lab1.Compiller
 
         public string Serialize()
         {
-            return $"{Type}\t{Literal}";
+            return $"{"Служебный символ"}\t{Literal}";
         }
     }
 }

@@ -28,7 +28,6 @@
 		/// </summary>
 		private void InitializeComponent ()
 			{
-            this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textInput = new System.Windows.Forms.TextBox();
             this.lexemsText = new System.Windows.Forms.TextBox();
@@ -38,37 +37,29 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.turpleText = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 7);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(187, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Вариант 15: S=sqrt(p*(p-a)*(p-b)*(p-c))";
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(677, 148);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(711, 126);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 23);
+            this.button1.Size = new System.Drawing.Size(78, 28);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Скомпилировать";
+            this.button1.Text = "Зпустить";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textInput
             // 
             this.textInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textInput.Location = new System.Drawing.Point(11, 50);
-            this.textInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textInput.Location = new System.Drawing.Point(11, 28);
+            this.textInput.Margin = new System.Windows.Forms.Padding(2);
             this.textInput.Multiline = true;
             this.textInput.Name = "textInput";
             this.textInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -78,8 +69,8 @@
             // lexemsText
             // 
             this.lexemsText.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lexemsText.Location = new System.Drawing.Point(11, 207);
-            this.lexemsText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lexemsText.Location = new System.Drawing.Point(11, 180);
+            this.lexemsText.Margin = new System.Windows.Forms.Padding(2);
             this.lexemsText.Multiline = true;
             this.lexemsText.Name = "lexemsText";
             this.lexemsText.ReadOnly = true;
@@ -91,19 +82,19 @@
             // 
             this.lexTable.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lexTable.Location = new System.Drawing.Point(11, 316);
-            this.lexTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lexTable.Margin = new System.Windows.Forms.Padding(2);
             this.lexTable.Multiline = true;
             this.lexTable.Name = "lexTable";
             this.lexTable.ReadOnly = true;
             this.lexTable.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.lexTable.Size = new System.Drawing.Size(276, 254);
+            this.lexTable.Size = new System.Drawing.Size(290, 254);
             this.lexTable.TabIndex = 4;
             // 
             // postfixText
             // 
             this.postfixText.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.postfixText.Location = new System.Drawing.Point(322, 316);
-            this.postfixText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.postfixText.Margin = new System.Windows.Forms.Padding(2);
             this.postfixText.Multiline = true;
             this.postfixText.Name = "postfixText";
             this.postfixText.ReadOnly = true;
@@ -114,7 +105,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 35);
+            this.label2.Location = new System.Drawing.Point(11, 13);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 13);
@@ -145,18 +136,43 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 192);
+            this.label5.Location = new System.Drawing.Point(11, 165);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(169, 13);
             this.label5.TabIndex = 9;
             this.label5.Text = "Вывод получившхся выражений";
             // 
+            // turpleText
+            // 
+            this.turpleText.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.turpleText.Location = new System.Drawing.Point(11, 596);
+            this.turpleText.Margin = new System.Windows.Forms.Padding(2);
+            this.turpleText.Multiline = true;
+            this.turpleText.Name = "turpleText";
+            this.turpleText.ReadOnly = true;
+            this.turpleText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.turpleText.Size = new System.Drawing.Size(778, 247);
+            this.turpleText.TabIndex = 10;
+            this.turpleText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 581);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(117, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Запись в виде тетрад";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 581);
+            this.ClientSize = new System.Drawing.Size(802, 860);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.turpleText);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -166,8 +182,7 @@
             this.Controls.Add(this.lexemsText);
             this.Controls.Add(this.textInput);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -177,8 +192,6 @@
 			}
 
 		#endregion
-
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.TextBox textInput;
 		private System.Windows.Forms.TextBox lexemsText;
@@ -188,6 +201,8 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox turpleText;
+        private System.Windows.Forms.Label label1;
     }
 	}
 
